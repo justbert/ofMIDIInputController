@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<controller manufacturer="pioneer" model="ddj-sb2">
+	<deck number="1">
+		<slider name="tempo1">
+			<channel>1</channel>
+			<msbnote>0</msbnote>
+			<lsbnote>32</lsbnote>
+		</slider>
+		<platter name="platter1">
+			<channel>1</channel>
+			<touchNote>53</touchNote>
+			<rotateNote>35</rotateNote>
+		</platter>
+		<button name="play1">
+			<channel>1</channel>
+			<note>11</note>
+		</button>
+	</deck>
+  <deck number="1">
+    <slider name ="temp1" channel ="1" msbnote="0" lsbnote="32"/>
+    <button name="play1" channel="1" note="11"/>
+  </deck>
+</controller>
