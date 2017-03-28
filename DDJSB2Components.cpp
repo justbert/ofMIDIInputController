@@ -71,10 +71,17 @@ void DDJSB2Button::newMidiMessage(ofxMidiMessage& eventArgs)
 	}
 }
 
-DDJSB2SliderKnob*  DDJSB2Components::addSlider(string name, int channel, int MSBData, int LSBData)
+DDJSB2SliderKnob* DDJSB2Components::addSlider(string name, int channel, int MSBData, int LSBData)
 {
-	SLIDERS[name] = new DDJSB2SliderKnob(channel, MSBData, LSBData);
-	return SLIDERS[name];
+	if (channel < 0 || channel > 15)
+		return nullptr;
+	
+	auto pointer = new DDJSB2SliderKnob(channel, MSBData, LSBData);
+
+	if(pointer != nullptr)
+		SLIDERS[name] = pointer;
+
+	return pointer;
 }
 
 DDJSB2SliderKnob* DDJSB2Components::getSlider(string name)
@@ -151,19 +158,21 @@ bool DDJSB2Components::populateFromXML(string filename)
 
 		if (type == "slider")
 		{
-			
+			this->addSlider(attributes["name"], stoi(attributes["channel"]), stoi(attributes["msbnote"]), stoi(attributes["lsbnote"]));
 		} 
 		else if (type == "button")
 		{
-			
+			this->addButton(attributes["name"], stoi(attributes["channel"]), stoi(attributes["note"]));
 		} 
 		else if (type == "knob")
 		{
-			
+			this->addKnob(attributes["name"], stoi(attributes["channel"]), stoi(attributes["msbnote"]), stoi(attributes["lsbnote"]));
 		} 
 		else if (type == "platter")
 		{
 			
 		}
+
+		xml.setToParent();
 	}
 }
