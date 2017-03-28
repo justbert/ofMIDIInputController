@@ -1,4 +1,5 @@
 #include "DDJSB2Components.h"
+#include "ofxXmlSettings.h"
 
 void DDJSB2SliderKnob::newMidiMessage(ofxMidiMessage& eventArgs)
 {
@@ -126,5 +127,43 @@ DDJSB2Button* DDJSB2Components::getButton(string name)
 
 bool DDJSB2Components::populateFromXML(string filename)
 {
+	ofXml xml;
+	xml.load(filename);
 	
+	if(!xml.exists("controller"))
+	{
+		xml.setTo("controller");
+		auto currentAttributes = xml.getAttributes();
+
+		if (currentAttributes["manufacturer"] != "pioneer" || currentAttributes["model"] != "ddj-sb2")
+			return false;
+	} else
+	{
+		return false;
+	}
+
+	for(int i = 0; i < xml.getNumChildren(); ++i)
+	{
+		xml.setToChild(i);
+
+		auto attributes = xml.getAttributes();
+		string type = xml.getName();
+
+		if (type == "slider")
+		{
+			
+		} 
+		else if (type == "button")
+		{
+			
+		} 
+		else if (type == "knob")
+		{
+			
+		} 
+		else if (type == "platter")
+		{
+			
+		}
+	}
 }
