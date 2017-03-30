@@ -40,7 +40,7 @@ void ofApp::setup() {
 
 	components = new DDJSB2Components(midiIn);
 	//components.addSlider("crossfader", 7, 31, 63);
-	//components->populateFromXML("Pioneer_DDJ-SB2.xml");
+	components->populateFromXML("Pioneer_DDJ-SB2.xml");
 	components->addSlider("crossfader", 7, 31, 63);
 	components->addButton("play1", 1, 0x0B);
 	DDJSB2SliderKnob* crossfader = components->getSlider("crossfader");

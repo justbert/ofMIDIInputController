@@ -153,8 +153,10 @@ DDJSB2Button* DDJSB2Components::getButton(string name)
 bool DDJSB2Components::populateFromXML(string filename)
 {
 	ofXml xml;
-	xml.load(filename);
-	
+	ofFile file;
+	file.open(filename);
+	xml.loadFromBuffer(file.readToBuffer().getText());
+
 	if(!xml.exists("controller"))
 	{
 		xml.setTo("controller");
