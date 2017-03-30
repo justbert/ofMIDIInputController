@@ -35,6 +35,8 @@ protected:
 class MIDIControllerComponents
 {
 public:
+	MIDIControllerComponents(ofxMidiIn midiIn) : midiIn(midiIn){}
+
 	virtual ~MIDIControllerComponents()
 	{
 		for (auto it = BUTTONS.begin(); it != BUTTONS.end(); ++it)
@@ -54,12 +56,12 @@ public:
 	}
 
 	virtual bool populateFromXML(string) = 0;
-	virtual bool addSlider(string, MIDIComponent*) = 0;
 	virtual MIDIComponent* getSlider(string) = 0;
 	virtual MIDIComponent* getButton(string) = 0;
 	virtual MIDIComponent* getKnob(string) = 0;
 
 protected:
+	ofxMidiIn midiIn;
 	map<string, MIDIComponent*> BUTTONS;
 	map<string, MIDIComponent*> SLIDERS;
 	map<string, MIDIComponent*> KNOBS;

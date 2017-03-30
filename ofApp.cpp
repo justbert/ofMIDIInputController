@@ -11,7 +11,7 @@
 #include "ofApp.h"
 #include "DDJSB2Components.h"
 
-DDJSB2Components components;
+DDJSB2Components* components;
 //--------------------------------------------------------------
 void ofApp::setup() {
 	ofSetVerticalSync(true);
@@ -38,13 +38,15 @@ void ofApp::setup() {
 	// print received messages to the console
 	midiIn.setVerbose(true);
 
-	
-	components.addSlider("crossfader", 7, 31, 63);
+	components = new DDJSB2Components(midiIn);
+	//components.addSlider("crossfader", 7, 31, 63);
+	//components->populateFromXML("Pioneer_DDJ-SB2.xml");
+	components->addSlider("crossfader", 7, 31, 63);
+	components->addButton("play1", 1, 0x0B);
+	DDJSB2SliderKnob* crossfader = components->getSlider("crossfader");
 
-	DDJSB2SliderKnob* crossfader = components.getSlider("crossfader");
-
-	if (crossfader != nullptr)
-		midiIn.addListener(crossfader);
+	if (crossfader != nullptr);
+	//	midiIn.addListener(crossfader);
 	
 //	midiIn.addListener(&slider);
 }
@@ -94,11 +96,16 @@ void ofApp::draw() {
 	text << "delta: " << midiMessage.deltatime;
 	ofDrawBitmapString(text.str(), 20, 240);
 	text.str(""); // clear
+
+	//cout << components->getSlider("crossfader")->getValue() << endl;
+	cout << components->getButton("play1")->isPressed();
 }
 
 //--------------------------------------------------------------
 void ofApp::exit() {
 	
+	delete components;
+
 	// clean up
 	midiIn.closePort();
 	midiIn.removeListener(this);

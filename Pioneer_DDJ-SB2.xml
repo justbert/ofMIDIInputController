@@ -1,0 +1,4 @@
+<controller manufacturer="pioneer" model="ddj-sb2">
+  <slider name ="temp1" channel ="0" msbnote="0" lsbnote="32"/>
+  <button name="play1" channel="0" note="11"/>
+</controller>

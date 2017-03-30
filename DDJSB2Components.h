@@ -115,6 +115,8 @@ protected:
 class DDJSB2Components : public MIDIControllerComponents
 {
 public:
+	DDJSB2Components(ofxMidiIn midiIn) : MIDIControllerComponents(midiIn) {}
+
 	bool populateFromXML(string filename) override;
 
 	DDJSB2SliderKnob* addSlider(string name, int channel, int MSBData, int LSBData);
