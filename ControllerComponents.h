@@ -41,16 +41,19 @@ public:
 	{
 		for (auto it = BUTTONS.begin(); it != BUTTONS.end(); ++it)
 		{
+			midiIn.removeListener(it->second);
 			delete it->second;
 		}
 
 		for (auto it = SLIDERS.begin(); it != SLIDERS.end(); ++it)
 		{
+			midiIn.removeListener(it->second);
 			delete it->second;
 		}
 
 		for (auto it = KNOBS.begin(); it != KNOBS.end(); ++it)
 		{
+			midiIn.removeListener(it->second);
 			delete it->second;
 		}
 	}
