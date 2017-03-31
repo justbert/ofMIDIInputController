@@ -1,4 +1,15 @@
 <controller manufacturer="pioneer" model="ddj-sb2">
-  <slider name ="temp1" channel ="0" msbnote="0" lsbnote="32"/>
-  <button name="play1" channel="0" note="11"/>
+  <slider name ="temp1" channel ="1" msbnote="0" lsbnote="32"/>
+  <button name="play1" channel="1" note="11"/>
+  <knob name="trim1" channel ="1" msbnote="4" lsbnote="36"/>
+  <knob name="trim2" channel ="2" msbnote="4" lsbnote="36"/>
+  <knob name="eqHi1" channel ="1" msbnote="7" lsbnote="39"/>
+  <knob name="eqMid1" channel ="1" msbnote="11" lsbnote="43"/>
+  <knob name="eqLow1" channel ="1" msbnote="15" lsbnote="47"/> 
+  <knob name="eqHi2" channel ="2" msbnote="7" lsbnote="39"/>
+  <knob name="eqMid2" channel ="2" msbnote="11" lsbnote="43"/>
+  <knob name="eqLow2" channel ="2" msbnote="15" lsbnote="47"/>
+  <slider name="crossfader" channel="7" msbnote="31" lsbnote="63"/>
+  <slider name="channelFader1" channel="1" msbnote="19" lsbnote="51"/>
+  <slider name="channelFader2" channel="2" msbnote="19" lsbnote="51"/>
 </controller>

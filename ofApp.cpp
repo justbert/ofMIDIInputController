@@ -12,6 +12,8 @@
 #include "DDJSB2Components.h"
 
 DDJSB2Components* components;
+string sliders[] = { "crossfader", "channelFader1", "channelFader2" };
+string knobs[] = { "trim1", "eqHi1", "eqMid1", "eqLow1", "trim2", "eqHi2", "eqMid2", "eqLow2" };
 //--------------------------------------------------------------
 void ofApp::setup() {
 	ofSetVerticalSync(true);
@@ -40,15 +42,8 @@ void ofApp::setup() {
 
 	components = new DDJSB2Components(midiIn);
 	//components.addSlider("crossfader", 7, 31, 63);
+	//must be located in bin/data
 	components->populateFromXML("Pioneer_DDJ-SB2.xml");
-	components->addSlider("crossfader", 7, 31, 63);
-	components->addButton("play1", 1, 0x0B);
-	DDJSB2SliderKnob* crossfader = components->getSlider("crossfader");
-
-	if (crossfader != nullptr);
-	//	midiIn.addListener(crossfader);
-	
-//	midiIn.addListener(&slider);
 }
 
 //--------------------------------------------------------------
@@ -58,47 +53,36 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	ofSetColor(0);
-	
-	// draw the last recieved message contents to the screen
-	text << "Received: " << ofxMidiMessage::getStatusString(midiMessage.status);
-	ofDrawBitmapString(text.str(), 20, 20);
-	text.str(""); // clear
-	
-	text << "channel: " << midiMessage.channel;
-	ofDrawBitmapString(text.str(), 20, 34);
-	text.str(""); // clear
-	
-	text << "pitch: " << midiMessage.pitch;
-	ofDrawBitmapString(text.str(), 20, 48);
-	text.str(""); // clear
-	ofDrawRectangle(20, 58, ofMap(midiMessage.pitch, 0, 127, 0, ofGetWidth()-40), 20);
-	
-	text << "velocity: " << midiMessage.velocity;
-	ofDrawBitmapString(text.str(), 20, 96);
-	text.str(""); // clear
-	ofDrawRectangle(20, 105, ofMap(midiMessage.velocity, 0, 127, 0, ofGetWidth()-40), 20);
-	
-	text << "control: " << midiMessage.control;
-	ofDrawBitmapString(text.str(), 20, 144);
-	text.str(""); // clear
-	ofDrawRectangle(20, 154, ofMap(midiMessage.control, 0, 127, 0, ofGetWidth()-40), 20);
-	
-	text << "value: " << midiMessage.value;
-	ofDrawBitmapString(text.str(), 20, 192);
-	text.str(""); // clear
-	if(midiMessage.status == MIDI_PITCH_BEND) {
-		ofDrawRectangle(20, 202, ofMap(midiMessage.value, 0, MIDI_MAX_BEND, 0, ofGetWidth()-40), 20);
-	}
-	else {
-		ofDrawRectangle(20, 202, ofMap(midiMessage.value, 0, 127, 0, ofGetWidth()-40), 20);
-	}
-	
-	text << "delta: " << midiMessage.deltatime;
-	ofDrawBitmapString(text.str(), 20, 240);
-	text.str(""); // clear
 
-	//cout << components->getSlider("crossfader")->getValue() << endl;
-	cout << components->getButton("play1")->isPressed();
+	int y = 20;
+	int value;
+
+	for (string name : sliders)
+	{
+		DDJSB2SliderKnob* current = components->getSlider(name);
+		if (current != nullptr) {
+			text << "Name: " << name;
+			ofDrawBitmapString(text.str(), 20, y);
+			text.str(""); // clear
+			value = current->getValue();
+			ofDrawRectangle(20, y + 5, ofMap(value, 0, 16383, 0, ofGetWidth() - 40), 20);
+			y += 40;
+		}
+	}
+
+	for (string name : knobs)
+	{
+		DDJSB2SliderKnob* current = components->getKnob(name);
+		if (current != nullptr) {
+			text << "Name: " << name;
+			ofDrawBitmapString(text.str(), 20, y);
+			text.str(""); // clear
+			value = current->getValue();
+			ofDrawRectangle(20, y + 5, ofMap(value, 0, 16383, 0, ofGetWidth() - 40), 20);
+			y += 40;
+		}
+	}
+	//cout << components->getButton("play1")->isPressed();
 }
 
 //--------------------------------------------------------------
